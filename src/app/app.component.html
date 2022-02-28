@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-md-12 d-flex justify-content-center">
+    <h1>Todo - List</h1>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center" style="margin-top: 10px">
+  <div class="col-md-4">
+    <input type="text" class="form-control" [(ngModel)]="newTask" placeholder="Enter List"/>
+  </div>
+
+  <div class="col-md-2">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      [(ngModel)]="newpriority"
+    >
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+  </div>
+
+  <div class="col-md-1">
+    <button class="btn btn-primary form" (click)="onAddTasks()" type="submit">
+      ADD
+    </button>
+  </div>
+</div>
+<hr />
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="d-flex justify-content-between">
+      <h3>Tasks Remaining</h3>
+      <button class="btn btn-danger" (click)="onDeleteAll()">Delete All</button>
+    </div>
+    <hr />
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Task</td>
+          <td>Priority</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks; let index = index">
+          <td>{{ task.name }}</td>
+          <td>
+            <span class="badge bg-success" *ngIf="task.priority === 'Low'">{{
+              task.priority
+            }}</span>
+            <span class="badge bg-warning" *ngIf="task.priority === 'Medium'">{{
+              task.priority
+            }}</span>
+            <span class="badge bg-danger" *ngIf="task.priority === 'High'">{{
+              task.priority
+            }}</span>
+          </td>
+          <td >
+            <button class="btn btn-success" (click)="onComplete(index)">
+              Complete
+            </button>
+            <button class="btn btn-warning" (click)="onEdit(index)">
+              Edit
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="onDelete(index)"
+              type="button"
+            >
+              Delete
+            </button>
+          </td>
+
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Completed Tasks</h3>
+    <hr />
+
+    <div class="card" *ngFor="let completeT of comTask; let index = index">
+      <div class="card-header">{{ index + 1 }}</div>
+      <div class="card-body text-success" *ngIf="completeT.priority === 'Low'">
+        <h6 class="card-title">{{ completeT.priority }}</h6>
+        <h5 class="card-text">{{ completeT.name }}</h5>
+      </div>
+
+      <div
+        class="card-body text-warning"
+        *ngIf="completeT.priority === 'Medium'"
+      >
+        <h6 class="card-title">{{ completeT.priority }}</h6>
+        <h5 class="card-text">{{ completeT.name }}</h5>
+      </div>
+
+      <div class="card-body text-danger" *ngIf="completeT.priority === 'High'">
+        <h6 class="card-title">{{ completeT.priority }}</h6>
+        <h5 class="card-text">{{ completeT.name }}</h5>
+      </div>
+    </div>
+  </div>
+</div>
